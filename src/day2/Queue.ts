@@ -28,14 +28,21 @@ export default class Queue<T> {
 
     deque(): T | undefined {
         if (!this.head) {
-            return undefined
+            return undefined;
         }
 
         this.length--; 
 
-        const head = this.head
-        this.head = head.next
-        return head?.value
+        const head = this.head;
+        this.head = head.next;
+
+        head.next = undefined;
+
+        if (this.length === 0) {
+            this.tail = undefined;
+        }
+
+        return head?.value;
     }
 
     peek(): T | undefined {
